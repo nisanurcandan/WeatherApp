@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Weather App</title>
+  </head>
+  <style>
+    body {
+      background-color: rgb(52, 175, 247);
+    }
+    .title {
+      color: whitesmoke;
+      font-family: "Garamond";
+      text-align: center;
+      font-size: 25px;
+      margin-bottom: 75px;
+    }
+    .temp_c {
+      color: whitesmoke;
+      font-family: "Garamond";
+      text-align: center;
+      font-size: 50px;
+      margin-bottom: 15px;
+    }
+    .condition {
+      color: whitesmoke;
+      font-family: "Garamond";
+      text-align: center;
+      font-size: 50px;
+      margin-bottom: 15px;
+    }
+    .localtime {
+      color: whitesmoke;
+      font-family: "Garamond";
+      text-align: center;
+      font-size: 50px;
+      margin-bottom: 75px;
+    }
+    .cityInput {
+      color: whitesmoke;
+      font-family: "Garamond";
+      text-align: center;
+    }
+    .button {
+      background-color: rgb(17, 60, 77);
+      color: whitesmoke;
+      font-family: "Garamond";
+      text-align: center;
+      font-size: 20px;
+      height: 50px;
+      width: 100px;
+    }
+    .buttons {
+      text-align: center;
+      font-size: 15px;
+    }
+  </style>
+  <body>
+    <div class="title">
+      <h1>
+        Weather App
+      </h1>
+    </div>
+
+    <div class="temp_c">
+      <p1 id="temp_c">
+        0
+      </p1>
+    </div>
+
+    <div class="condition">
+      <p1 id="condition">
+        Condition
+      </p1>
+    </div>
+
+    <div class="localtime">
+      <p1 id="localtime">
+        2022-01-08 9:23
+      </p1>
+    </div>
+
+    <div class="cityInput">
+      <form>
+        <label for="fname">City Name</label>
+        <input type="text" id="fname" name="fname" /><br /><br />
+      </form>
+    </div>
+
+    <div class="buttons">
+      <button class="button" type="button" onclick="getWeather()">
+        Get Weather
+      </button>
+    </div>
+  </body>
+
+  <script>
+    function getWeather() {
+      var cityName = document.getElementById("fname").value;
+      fetch(
+        "https://api.weatherapi.com/v1/current.json?key=304bcb2e9f6e45bdb15155347210912&q=" +
+          cityName +
+          "&aqi=no"
+      )
+        .then(function (resp) {
+          return resp.json();
+        })
+        .then(function (data) {
+          document.getElementById("temp_c").innerHTML =
+            data.current.temp_c + "°C";
+          document.getElementById("condition").innerHTML =
+            data.current.condition.text;
+          document.getElementById("localtime").innerHTML =
+            data.location.localtime;
+        });
+    }
+  </script>
+</html>
